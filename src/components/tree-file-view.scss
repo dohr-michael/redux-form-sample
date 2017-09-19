@@ -1,0 +1,12 @@
+.tree-file-view {
+  padding: 1em 0 1em 1em;
+  display: flex;
+  flex-flow: row nowrap;
+  height: 100%;
+  .content {
+    flex: 1;
+    padding-left: 3em;
+    height: 100%;
+    overflow: auto;
+  }
+}

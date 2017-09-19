@@ -8,7 +8,8 @@ import createHistory from 'history/createHashHistory';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createEpicMiddleware } from 'redux-observable';
-import { Menu, Grid } from 'semantic-ui-react';
+import { Menu, Grid, Modal, Button, Divider } from 'semantic-ui-react';
+import { TreeFileView } from '../components/tree-file-view';
 // Polyfills
 import 'rxjs';
 import 'babel-polyfill';
@@ -44,6 +45,32 @@ const store = createStore(
     )
 );
 
+
+class Content extends React.Component {
+    
+    
+    render(): JSX.Element | any {
+        return (
+            <div className="content">
+                <Modal className="source-modal" trigger={ <Button icon="sticky note outline" content="Source"/> } size="fullscreen">
+                    <Switch>
+                        <Route exact path="/basic" component={ () => <TreeFileView root="src/app/basic" items={ basic.items }/> }/>
+                        <Route exact path="/basic-semantic" component={ () => <TreeFileView root="src/app/basic" items={ basic.itemsSemantic }/> }/>
+                        <Route exact path="/field-validation-sync" component={ () => <TreeFileView root="src/app/sync-validation" items={ sync.fieldValidationItems }/> }/>
+                    </Switch>
+                </Modal>
+                <Divider horizontal />
+                <Switch>
+                    <Route exact path="/basic" component={ basic.BasicForm }/>
+                    <Route exact path="/basic-semantic" component={ basic.SemanticBasicForm }/>
+                    <Route exact path="/field-validation-sync" component={ sync.FieldValidationForm }/>
+                    <Redirect to="/basic"/>
+                </Switch>
+            </div>
+        );
+    }
+}
+
 const MyApp = () => (
     <Provider store={ store }>
         <ConnectedRouter history={ history }>
@@ -53,15 +80,7 @@ const MyApp = () => (
                     <Menu.Item as={ NavLink } to="/basic-semantic">Basic with Semantic</Menu.Item>
                     <Menu.Item as={ NavLink } to="/field-validation-sync">Field Validation Sync</Menu.Item>
                 </Menu>
-                <div className="content">
-                    <Switch>
-                        <Route exact path="/basic" component={ basic.BasicForm }/>
-                        <Route exact path="/basic-semantic" component={ basic.SemanticBasicForm }/>
-                        <Route exact path="/basic-semantic" component={ basic.SemanticBasicForm }/>
-                        <Route exact path="/field-validation-sync" component={ sync.FieldValidationForm }/>
-                        <Redirect to="/basic"/>
-                    </Switch>
-                </div>
+                <Content/>
             </div>
         </ConnectedRouter>
     </Provider>

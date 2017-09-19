@@ -1,5 +1,5 @@
 import { reduxForm } from 'redux-form';
-import { BasicForm as BasicFormBase, SemanticBasicForm as SemanticBasicFormBase } from './components';
+import { BasicFormBase, SemanticBasicFormBase } from './components';
 import { FormData } from './models';
 
 
