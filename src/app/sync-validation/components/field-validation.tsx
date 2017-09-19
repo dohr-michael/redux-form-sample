@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createSelector } from 'reselect';
-import { Form, Button, Checkbox } from 'semantic-ui-react';
-import { /*Field, */InjectedFormProps, Validator } from 'redux-form';
+import { Form, Button } from 'semantic-ui-react';
+import { /*Field, */InjectedFormProps } from 'redux-form';
 // To Works with Semantic Ui, you need a wrapper on Field to propagate props to Semantic.
 // In Component folder I've created this wrapper with correct typing.
 import { Field } from '../../../components';

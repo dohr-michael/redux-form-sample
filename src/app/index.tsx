@@ -8,7 +8,7 @@ import createHistory from 'history/createHashHistory';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createEpicMiddleware } from 'redux-observable';
-import { Menu, Grid, Modal, Button, Divider } from 'semantic-ui-react';
+import { Menu, Grid, Modal, Button, Divider, Dropdown } from 'semantic-ui-react';
 import { TreeFileView } from '../components/tree-file-view';
 // Polyfills
 import 'rxjs';
@@ -54,16 +54,18 @@ class Content extends React.Component {
             <div className="content">
                 <Modal className="source-modal" trigger={ <Button icon="sticky note outline" content="Source"/> } size="fullscreen">
                     <Switch>
-                        <Route exact path="/basic" component={ () => <TreeFileView root="src/app/basic" items={ basic.items }/> }/>
-                        <Route exact path="/basic-semantic" component={ () => <TreeFileView root="src/app/basic" items={ basic.itemsSemantic }/> }/>
-                        <Route exact path="/field-validation-sync" component={ () => <TreeFileView root="src/app/sync-validation" items={ sync.fieldValidationItems }/> }/>
+                        <Route exact path="/basic" component={ () => <TreeFileView root="src/app" items={ basic.items }/> }/>
+                        <Route exact path="/basic-semantic" component={ () => <TreeFileView root="src/app" items={ basic.itemsSemantic }/> }/>
+                        <Route exact path="/field-validation-sync" component={ () => <TreeFileView root="src/app" items={ sync.fieldValidationItems }/> }/>
+                        <Route exact path="/global-validation-sync" component={ () => <TreeFileView root="src/app" items={ sync.globalValidationItems }/> }/>
                     </Switch>
                 </Modal>
-                <Divider horizontal />
+                <Divider horizontal/>
                 <Switch>
                     <Route exact path="/basic" component={ basic.BasicForm }/>
                     <Route exact path="/basic-semantic" component={ basic.SemanticBasicForm }/>
                     <Route exact path="/field-validation-sync" component={ sync.FieldValidationForm }/>
+                    <Route exact path="/global-validation-sync" component={ sync.GlobalValidationForm }/>
                     <Redirect to="/basic"/>
                 </Switch>
             </div>
@@ -76,9 +78,24 @@ const MyApp = () => (
         <ConnectedRouter history={ history }>
             <div className="app">
                 <Menu fixed="top" inverted>
-                    <Menu.Item as={ NavLink } to="/basic">Basic</Menu.Item>
-                    <Menu.Item as={ NavLink } to="/basic-semantic">Basic with Semantic</Menu.Item>
-                    <Menu.Item as={ NavLink } to="/field-validation-sync">Field Validation Sync</Menu.Item>
+                    <Dropdown item text="Basic">
+                        <Dropdown.Menu>
+                            <Dropdown.Item as={ NavLink } to="/basic">Without Semantic</Dropdown.Item>
+                            <Dropdown.Item as={ NavLink } to="/basic-semantic">With Semantic</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    <Dropdown item text="Array">
+                        <Dropdown.Menu>
+                            <Dropdown.Item as={ NavLink } to="/array">Array Field</Dropdown.Item>
+                            <Dropdown.Item as={ NavLink } to="/array-with-sub">Array With Sub Array</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    <Dropdown item text="Sync Validation">
+                        <Dropdown.Menu>
+                            <Dropdown.Item as={ NavLink } to="/field-validation-sync">By Field</Dropdown.Item>
+                            <Dropdown.Item as={ NavLink } to="/global-validation-sync">Global</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </Menu>
                 <Content/>
             </div>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { List, Icon } from 'semantic-ui-react';
+import { List, Icon, Divider } from 'semantic-ui-react';
 import { GithubSourceContent } from './github-source-content';
 import './tree-file-view.scss';
 
@@ -81,6 +81,8 @@ class TreeFileView extends React.Component<TreeFileViewProps> {
                     }
                 </List>
                 <div className="content">
+                    { this.state.selected }
+                    <Divider/>
                     { this.state.selected ? <GithubSourceContent file={ this.state.selected }/> : null }
                 </div>
             </div>

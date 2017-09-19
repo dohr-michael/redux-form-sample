@@ -1,7 +1,6 @@
 import { reduxForm } from 'redux-form';
-import { BasicFormBase, SemanticBasicFormBase } from './components';
-import { FormData } from './models';
-
+import { SemanticBasicFormBase } from '../components';
+import { FormData } from '../models';
 
 function submit( values: Partial<FormData> ) {
     return new Promise( resolve => {
@@ -13,7 +12,6 @@ function submit( values: Partial<FormData> ) {
     
 }
 
-const BasicForm = reduxForm<FormData>( { form: 'basic', onSubmit: submit } )( BasicFormBase );
 const SemanticBasicForm = reduxForm<FormData>( { form: 'basic-semantic', onSubmit: submit } )( SemanticBasicFormBase );
 
-export { BasicForm, SemanticBasicForm };
+export { SemanticBasicForm };

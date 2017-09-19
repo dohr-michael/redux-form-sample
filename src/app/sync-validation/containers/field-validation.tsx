@@ -1,6 +1,6 @@
 import { reduxForm } from 'redux-form';
-import { FieldValidationForm as FieldValidationFormBase } from './components';
-import { FormData } from './models';
+import { FieldValidationFormBase } from '../components';
+import { FormData } from '../models';
 
 
 function submit( values: Partial<FormData> ) {
